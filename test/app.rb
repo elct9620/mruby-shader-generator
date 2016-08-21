@@ -22,7 +22,6 @@ shader.vertex do
     lightIntensity is amb + diff
 
     gl_Position is modelViewProjectionMatrix * position
-
   end
 end
 
