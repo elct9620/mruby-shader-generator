@@ -21,7 +21,9 @@ class Shader::Code
   end
 
   def is(*args)
-    AssignNode.new(*args)
+    value = args
+    value = args.first if args.first.is_a?(Array)
+    AssignNode.new(*value)
   end
 
   def export(code)
@@ -32,9 +34,14 @@ class Shader::Code
     export assign.to(name)
   end
 
+  def is_const?(name)
+    ("A".."Z").include?(name.to_s[0])
+  end
+
   def method_missing(name, *args, &block)
     value = args.first
     return assign(name, value) if value.is_a?(AssignNode)
+    return [send(name.downcase), value] if is_const?(name)
     Variable.new(name)
   end
 
