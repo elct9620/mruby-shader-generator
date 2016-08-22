@@ -26,6 +26,10 @@ class Shader::Variable
     @suffix = []
   end
 
+  def -@
+    @name = "-#{@name}"
+  end
+
   def method_missing(name, *args, &block)
     @suffix << name
     self

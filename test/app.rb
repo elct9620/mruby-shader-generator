@@ -26,7 +26,20 @@ shader.vertex do
 end
 
 shader.fragment do
+  main do
+    normal is 1 + 1 + lightIntensity
+    normal is 1 - 1 - lightIntensity
+    normal is 1 * 1 * lightIntensity
+    normal is 1 / 1 / lightIntensity
 
+    normal is 1.1 + lightIntensity
+    normal is 1.1 - lightIntensity
+    normal is 1.1 * lightIntensity
+    normal is 1.1 / lightIntensity
+
+    normal is (-lightIntensity)
+
+  end
 end
 
 shader.export

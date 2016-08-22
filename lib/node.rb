@@ -9,7 +9,8 @@ module Shader::Calculable
   end
 
   def -(other)
-    operation.push("-", other)
+    operation.push("-")
+    operation.push(other) unless other.nil?
     self
   end
 
@@ -46,6 +47,7 @@ class Shader::AssignNode
   end
 
   def to(name)
+    name = "-#{name}" if @negative
     return "#{name} = #{expression};" if @type.nil?
     "#{@type.to_typename} #{name} = #{expression};"
   end
@@ -57,4 +59,16 @@ end
 
 class Shader::ExpressionNode
   include Calculable
+end
+
+class Shader::NumberNode
+  include Calculable
+
+  def initialize(value)
+    @value = value
+  end
+
+  def to_s
+    @value.to_s
+  end
 end

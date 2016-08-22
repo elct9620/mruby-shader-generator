@@ -42,6 +42,7 @@ require './lib/node'
 require './lib/type'
 require './lib/code'
 require './lib/function'
+require './lib/number'
 
 # DSL
 class Shader
