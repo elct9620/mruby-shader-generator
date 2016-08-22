@@ -44,6 +44,7 @@ shader.fragment do
 =end
 
     normal is apple / (1 + normal) - lightIntensity * 2
+    Air is vec4, 1
 
   end
 end

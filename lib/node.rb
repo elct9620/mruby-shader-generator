@@ -57,9 +57,11 @@ class Shader::AssignNode
   end
 
   def to(name)
+    is_const = true if ("A".."Z").include?(name.to_s[0])
     name = "-#{name}" if @negative
     return "#{name} = #{expression};" if @type.nil?
-    "#{@type.to_typename} #{name} = #{expression};"
+    return "#{@type.to_typename} #{name} = #{expression};" unless is_const
+    "const #{@type.to_typename} #{name} = #{expression};"
   end
 
   def to_s
