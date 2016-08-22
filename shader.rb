@@ -26,18 +26,24 @@ class Shader
   }
 
   FUNCTIONS = %w{
-    transpose
-    inverse
-    normalize
     max
     dot
+    pow
+    mix
+
+    clamp
+
+    inverse
+
     reflect
     refract
-    pow
-    clamp
-    mix
+
     texture
+
+    transpose
+    normalize
   }
+
 end
 
 require './lib/node'
