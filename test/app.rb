@@ -3,11 +3,10 @@ require './shader'
 shader = Shader.new
 
 shader.vertex do
-  input vec4, :position
-  uniform sampler2DRect, :texture
+  input Vec4, :position
+  uniform Sampler2DRect, :texture
 
   main do
-=begin
     lightPosition is vec4, vec4(-500, -500, 500, 1)
     diffuseReflect is vec4, vec4(400, 100, 50, 1) # Diffuse Reflect Color
     normalMatrix is mat4, transpose(inverse(modelViewMatrix)) # Normal is vertical model
@@ -23,13 +22,11 @@ shader.vertex do
     lightIntensity is amb + diff
 
     gl_Position is modelViewProjectionMatrix * position
-=end
   end
 end
 
 shader.fragment do
   main do
-=begin
     normal is 1 + 1 + lightIntensity
     normal is 1 - 1 - lightIntensity
     normal is 1 * 1 * lightIntensity
@@ -41,7 +38,6 @@ shader.fragment do
     normal is 1.1 / lightIntensity
 
     normal is (-lightIntensity)
-=end
 
     normal is apple / (1 + normal) - lightIntensity * 2
     Air is vec4, 1

@@ -1,3 +1,8 @@
+def Object.const_missing(name)
+  return Shader::Type.new(name.downcase) if Shader::TYPES.keys.include?(name.downcase)
+  super
+end
+
 class Shader::Code
   TYPES.each do |type, typename|
     define_method(type) { |*args| Type.new(type, *args) }
@@ -43,6 +48,11 @@ class Shader::Code
     return assign(name, value) if value.is_a?(AssignNode)
     return [send(name.downcase), value] if is_const?(name)
     Variable.new(name)
+  end
+
+  def const_missing(name)
+    puts "CONST MISSING"
+    send(name.downcase) if TYPES.has_key?(name.downcase)
   end
 
   def main(&block)

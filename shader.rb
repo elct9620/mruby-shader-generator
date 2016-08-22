@@ -8,6 +8,8 @@ class Shader
     mat4: "mat4",
     float: "float",
     sampler2d: "sampler2D",
+    sampler2D: "sampler2D",
+    sampler2drect: "sampler2DRect",
     sampler2DRect: "sampler2DRect"
   }
 
