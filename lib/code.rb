@@ -64,6 +64,6 @@ class Shader::Code
       "#version 150",
       @header.join("\n"),
       @body.join("\n")
-    ].join("\n")
+    ].join("\n\n")
   end
 end
