@@ -5,28 +5,38 @@ module Shader::Calculable
 
   def +(other)
     operation.push("+", other)
-    self
+    BracketsNode.new(self)
   end
 
   def -(other)
     operation.push("-")
     operation.push(other) unless other.nil?
-    self
+    BracketsNode.new(self)
   end
 
   def *(other)
     operation.push("*", other)
-    self
+    BracketsNode.new(self)
   end
 
   def /(other)
     operation.push("/", other)
-    self
+    BracketsNode.new(self)
+  end
+
+  def expanded_operation
+    operation.map do |node|
+      if node.respond_to?(:to_expression)
+        node.to_expression
+      else
+        node.to_s
+      end
+    end
   end
 
   def to_expression
     return to_s if operation.empty?
-    "#{to_s} #{operation.join(" ")}"
+    "#{to_s} #{expanded_operation.join(" ")}"
   end
 end
 
@@ -70,5 +80,18 @@ class Shader::NumberNode
 
   def to_s
     @value.to_s
+  end
+end
+
+class Shader::BracketsNode
+  include Calculable
+
+  def initialize(content)
+    @content = content
+  end
+
+  def to_s
+    return "(#{@content.to_expression})" if @content.respond_to?(:to_expression)
+    "(#{@content.to_s})"
   end
 end
